@@ -1,0 +1,240 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Agreement</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .signature {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .signature div {
+            text-align: center;
+            width: 45%;
+        }
+        .photo-upload {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        input[type="file"], input[type="text"], input[type="number"] {
+            width: 100%;
+        }
+        .section strong {
+            text-transform: uppercase; /* Make text uppercase */
+            color: green;
+        }
+        .section img {
+            width: 20%; /* Set the width to 80% of the parent element */
+            max-width: 100px; /* Optional: limit the maximum width */
+            height: auto; /* Maintain the aspect ratio */
+        }
+        /* General body styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        
+        /* Styling for buttons */
+        button {
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text */
+            padding: 10px 15px; /* Padding for the button */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            margin-top: 10px; /* Space above the button */
+            font-size: 16px; /* Font size */
+        }
+        
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+        
+        /* Photo upload section styling */
+        .photo-upload {
+            display: flex; /* Flexbox for alignment */
+            justify-content: space-between; /* Space between items */
+            margin: 10px 0; /* Margin above and below the section */
+        }
+        
+        .photo-upload div {
+            flex: 1; /* Allow equal width for each input */
+            margin-right: 10px; /* Space between the inputs */
+        }
+        
+        .photo-upload div:last-child {
+            margin-right: 0; /* Remove right margin for the last child */
+        }
+        
+        /* Label styles */
+        label {
+            display: block; /* Block display for labels */
+            margin-bottom: 5px; /* Space below labels */
+        }
+        
+        /* Input styles */
+        input[type="file"] {
+            width: 100%; /* Full width */
+            padding: 10px; /* Padding inside the input */
+            border: 1px solid #ccc; /* Border style */
+            border-radius: 5px; /* Rounded corners */
+        }
+        
+        /* Aligning the main section */
+        .section {
+            margin-bottom: 20px; /* Margin below each section */
+        }
+        
+        
+    </style>
+    
+    
+</head>
+<!-- Submit Button -->
+
+<body>
+
+<h1>Loan Agreement</h1>
+
+<div class="section">
+    <h2>{{ application.loan_purpose }} AGREEMENT BETWEEN</h2>
+    <p><strong>LOAN DAY-</strong><a href="{% url 'personalpage' %}"><img src="{% static 'img/logo.png' %}" alt=""></a></p>
+    <p>AND<strong> {{ application.first_name }} {{ application.last_name }}</strong></p>
+</div>
+
+<div class="section">
+    <p>THIS AGREEMENT made and entered into at New York City this <strong>{{ current_date.day }}</strong> day of <strong>{{ current_date|date:"F" }}</strong>,{{ current_date.year }}</strong> BETWEEN <strong>Loan day</strong>  hereinafter called "the Lender" AND <strong>{{ application.first_name }}</strong> hereinafter called "the Borrower".</p>
+    <p>WHEREAS the Borrower is in need of funds and hence has approached the Lender to grant her an interest-free loan of Rs. <strong> {{ application.loan_amount }}/- </strong>Rupees only  for a period of <strong>5 years </strong> years;</p>
+    <p>AND WHEREAS the Lender has agreed to grant a loan to the Borrower, free of interest, as the Lender and the Borrower have known each other for several years;</p>
+    <p>AND WHEREAS the parties hereto are desirous of recording the terms and conditions of this loan in writing;</p>
+    
+</div>
+<div class="section">
+    <h2>LOAN DETAILS</h2>
+    <p><strong>Name of Applicant:</strong> <span id="applicantName">{{ application.first_name }} {{ application.last_name }}</span></p>
+    <p><strong>Application Number:</strong> <span>{{ application.application_number }}</span></p>
+    <p><strong>Loan Amount:</strong> Rs. <span id="loanAmount">{{ application.loan_amount }}</span>/- (Rupees {{ loan_amount_words }} only)</p>
+    <p><strong>Loan Purpose:</strong> <span id="loanPurpose">{{ application.loan_purpose }}</span></p>
+    <p><strong>Loan Tenure:</strong> <span id="loanTenure">5 years</span>, commencing from <span id="startDate">{{ current_date|date:"d-m-Y" }}</span> and terminating on <span id="endDate">{{ end_date|date:"d-m-Y" }}( + 5 years)</span>.</p>
+    <p><strong>Interest Rate:</strong> <span id="interestRate">{{ interest_rate }}</span>% per annum</p>
+    <p><strong>Total Amount Payable:</strong> Rs. <span id="totalAmount">{{ total_amount_payable|floatformat:0  }}</span>/- (Including principal and interest, Rupees {{ total_amount_words }} only)</p>
+</div>
+
+<div class="section">
+    <h2>ACCOUNT DETAILS</h2>
+    <p><strong>Account Number:</strong> <input type="text" id="accountNumber" value="{{ application.account_number }}" readonly></p>
+    <p><strong>Bank Name:</strong> <input type="text" id="bankName" value="{{ application.bank_name }}" readonly></p>
+</div>
+
+<div class="section">
+    <h2>TERMS AND CONDITIONS</h2>
+    <ol>
+        <li>The Borrower hereby agrees and undertakes to return the loan of Rs. {{ application.loan_amount|floatformat:0 }} /- (Rupees {{ loan_amount_words }}  only) in installments, within the period of 5 years, and provides their personal guarantee for the same.</li>
+        <li>The terms and conditions of this Agreement are arrived at by the mutual consent of the parties hereto.</li>
+        
+    </ol>
+    <input type="checkbox" id="agreeCheckbox" style="vertical-align: middle; margin-right: 5px;" required>
+    <label for="agreeCheckbox">I agree to the loan agreement</label>
+</div>
+</ol>
+    <!-- Checkbox for agreement -->
+
+    
+</div>
+
+<div class="section">
+    <p>IN WITNESS WHEREOF the parties hereto have hereunto set and subscribed their respective hands the day and year first hereinabove written.</p>
+</div>
+
+<div class="signature">
+    <div>
+        <p>__________________________</p>
+        <p><strong>Borrower</strong></p>
+        <p>Signed in the presence of:</p>
+        <p>__________________________</p>
+        <p><strong>Witness</strong></p>
+    </div>
+</div>
+
+<div class="photo-upload">
+    <div>
+        <label for="borrowerPhoto">Upload Borrower's Photo:</label>
+        <input type="file" id="borrowerPhoto" accept="image/*" required onchange="previewImage(event, 'photoPreview')">
+        <img id="photoPreview" src="" alt="Photo Preview" style="display:none; width:100px; height:auto; margin-top:10px;">
+    </div>
+</div>
+
+<div class="photo-upload">
+    <div>
+        <label for="borrowerSignature">Upload Borrower's Signature:</label>
+        <input type="file" id="borrowerSignature" accept="image/*" required onchange="previewImage(event, 'signaturePreview')">
+        <img id="signaturePreview" src="" alt="Signature Preview" style="display:none; width:100px; height:auto; margin-top:10px;">
+    </div>
+</div>
+
+<script>
+function previewImage(event, previewId) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    
+    reader.onload = function(e) {
+        const img = document.getElementById(previewId);
+        img.src = e.target.result;
+        img.style.display = 'block';
+    }
+    
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+}
+</script>
+
+
+
+
+<!-- Pass Django variables to the JavaScript function -->
+
+<!-- Print Button -->
+<button onclick="printAgreement()">Print Agreement</button>
+<button onclick="backToHome()">Back to Home</button>
+
+<script>
+    function backToHome() {
+        // Redirect to the home page
+        window.location.href = "http://127.0.0.1:8000/my-applications/";
+    }
+</script>
+
+<script>
+
+    function printAgreement() {
+        // Open print dialog
+        window.print();
+    }
+</script>
+
+<!-- Form -->
+<form id="loanAgreementForm" action="#" method="post">
+    {% csrf_token %}
+    <!-- Place all relevant input fields here if needed -->
+</form>
+</body>
+</html>

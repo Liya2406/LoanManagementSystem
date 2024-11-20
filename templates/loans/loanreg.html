@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Application Form</title>
+    
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #007bff;
+            font-size: 1.8em;
+            text-transform: uppercase;
+            margin: 20px 0;
+        }
+
+        /* Form Container */
+        .form-container {
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form Group Styling */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="date"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="file"],
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            font-size: 1em;
+        }
+
+        .form-group input[type="file"] {
+            cursor: pointer;
+        }
+
+        /* Radio Group Styling */
+        .radio-group label {
+            font-weight: normal;
+            font-size: 1em;
+            color: #555;
+            margin-right: 10px;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+        .error-box {
+            border: 1px solid red;
+            background-color: #ffebeb;
+            color: red;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            text-align: center;
+          }   
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Loan Application Form</h1>
+        <form action="{% url 'loanreg' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- Loan Details -->
+            <div class="form-group">
+                <label for="loan-amount">Desired Loan Amount $</label>
+                <select id="loan-amount" name="loan_amount" required>
+                    <option value="100000">100000</option>
+                    <option value="500000">500000</option>
+                    <option value="1000000">1000000</option>
+                    
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="annual-income">Annual Income $</label>
+                <input type="number" id="annual-income" name="annual_income" min="120000" required>
+            </div>
+            
+            <!-- Loan Purpose -->
+            <div class="form-group">
+                <label for="loan-purpose">Loan Type</label>
+                <input type="text" id="loan-purpose" name="loan_purpose" value="{{ loan_title }}" required>
+            </div>
+            
+
+            <!-- Contact Information -->
+            <h2>Contact Information</h2>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="title" name="title" placeholder="Title">
+                <input type="text" id="first-name" name="first_name" placeholder="First Name" required>
+                <input type="text" id="last-name" name="last_name" placeholder="Last Name" required>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth *</label>
+                <input type="date" id="dob" name="dob" required>
+                <div id="dobError" class="error-box" style="display: none;">
+                  Not Eligible
+                </div>
+              </div>
+            
+            <div class="form-group">
+                <label>Marital Status</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="marital_status" value="single" required> Single</label>
+                    <label><input type="radio" name="marital_status" value="married"> Married</label>
+                    <label><input type="radio" name="marital_status" value="other"> Other</label>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" placeholder="example@example.com" required
+                       pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                       title="Please enter a valid email address, e.g., example@example.com">
+                <div class="error" id="emailError" style="color: red; display: none;">Please enter a valid email address, e.g., example@example.com</div>
+              </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" maxlength="10" required pattern="\d{10}" title="Please enter a valid 10-digit phone number" required>
+            
+            <!-- Modal for OTP Verification -->
+            
+            
+            <!-- Address Information -->
+            <h2>Address</h2>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" required>
+                <input type="text" id="address2" name="address2" placeholder="Street Address Line 2">
+                <input type="text" id="city" name="city" placeholder="City" required>
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <select id="state" name="state" required>
+                      <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                      <option value="Kollam">Kollam</option>
+                      <option value="Pathanamthitta">Pathanamthitta</option>
+                      <option value="Alappuzha">Alappuzha</option>
+                      <option value="Kottayam">Kottayam</option>
+                      <option value="Idukki">Idukki</option>
+                      <option value="Ernakulam">Ernakulam</option>
+                      <option value="Thrissur" selected>Thrissur</option>
+                      <option value="Palakkad">Palakkad</option>
+                      <option value="Malappuram">Malappuram</option>
+                      <option value="Kozhikode">Kozhikode</option>
+                      <option value="Wayanad">Wayanad</option>
+                      <option value="Kannur">Kannur</option>
+                      <option value="Kasaragod">Kasaragod</option>
+                    </select>
+                  </div>
+                  
+                <div class="form-group">
+                    <label for="zip">Postal Code</label>
+                    <input type="text" id="zip" name="zip" placeholder="Postal Code" required
+                           pattern="^\d{6}$" 
+                           title="Please enter a valid 6-digit postal code, e.g., 123456">
+                    <div class="error" id="zipError" style="color: red; display: none;">Please enter a valid 6-digit postal code.</div>
+                  </div>
+            </div>
+
+            <div class="form-group">
+                <label>How long have you lived at your given address?</label>
+                <div class="radio-group" required>
+                    <label><input type="radio" name="residence_duration" value="0-1"> 0-1 Year</label>
+                    <label><input type="radio" name="residence_duration" value="1-2"> 1-2 Years</label>
+                    <label><input type="radio" name="residence_duration" value="3-4"> 3-4 Years</label>
+                    <label><input type="radio" name="residence_duration" value="5+"> 5+ Years</label>
+                </div>
+            </div>
+
+            <!-- Employment Information -->
+            <h2>Employment Information</h2>
+            <div class="form-group">
+                <label for="employer">Present Employer</label>
+                <div class="radio-group">
+                    <input type="text" id="employer" name="employer" required>
+                    <input type="text" id="occupation" name="occupation" placeholder="Occupation" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Years of Experience</label>
+                <div class="radio-group" required>
+                    <label><input type="radio" name="experience" value="0-1"> 0-1 Year</label>
+                    <label><input type="radio" name="experience" value="1-2"> 1-2 Years</label>
+                    <label><input type="radio" name="experience" value="3-4"> 3-4 Years</label>
+                    <label><input type="radio" name="experience" value="5+"> 5+ Years</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="monthly-income">Gross Monthly Income</label>
+                <input type="number" id="monthly-income" name="monthly_income" min="10000" required>
+            </div>
+
+            <!-- Bank References -->
+            <h2>Bank References</h2>
+            <div class="form-group">
+                <label for="bank-name">Institution Name</label>
+                <input type="text" id="bank-name" name="bank_name" required>
+            </div>
+            <div class="form-group">
+                <label for="account-number">Saving Account #</label>
+                <input type="text" id="account-number" name="account_number" required pattern="\d{10,18}" 
+                       title="Account number must be between 10 and 18 digits" maxlength="18">
+                <div class="error" id="accountNumberError" style="color: red; display: none;">Account number must be between 10 and 18 digits.</div>
+              </div>
+            <div class="form-group">
+                <label for="bank-address">Address</label>
+                <input type="text" id="bank-address" name="bank_address" required>
+            </div>
+            <div class="form-group">
+                <label for="bank-phone">Phone</label>
+                <input type="tel" id="bank-phone" name="bank_phone" maxlength="10" required pattern="\d{10}" title="Please enter a valid 10-digit phone number" required>
+              </div>
+
+            <!-- File Uploads -->
+            <div class="form-group">
+                <label for="document1">Upload Document 1 -Proof of address(Image)</label>
+                <input type="file" id="document1" name="document1" accept="image/jpeg, image/png, image/gif" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="document2">Upload Document 2- family income certificate(Image)</label>
+                <input type="file" id="document2" name="document2" accept="image/jpeg, image/png, image/gif" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="document3">Upload Document 3- proof of date of birth(Image)</label>
+                <input type="file" id="document3" name="document3" accept="image/jpeg, image/png, image/gif" required>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="submit-btn">Submit Application</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('dob').addEventListener('change', function () {
+          const dobInput = this;
+          const dob = new Date(dobInput.value);
+          const today = new Date();
+          const age = today.getFullYear() - dob.getFullYear();
+          const monthDiff = today.getMonth() - dob.getMonth();
+          const dayDiff = today.getDate() - dob.getDate();
+      
+          // Adjust for the month and day
+          const adjustedAge = monthDiff < 0 || (monthDiff === 0 && dayDiff < 0) ? age - 1 : age;
+      
+          const dobError = document.getElementById('dobError');
+          const loanPurpose = document.getElementById('loan-purpose').value.toLowerCase();  // Get the loan type
+      
+          let isAgeInvalid = false;
+      
+          if (loanPurpose === 'education loan') {
+            // Age should be between 16 and 35 for an education loan
+            isAgeInvalid = adjustedAge < 16 || adjustedAge > 35;
+            dobInput.setCustomValidity(
+              isAgeInvalid ? 'For an education loan, age must be between 16 and 35 years.' : ''
+            );
+          } else {
+            // General age requirement: 18 to 60
+            isAgeInvalid = adjustedAge < 18 || adjustedAge > 60;
+            dobInput.setCustomValidity(
+              isAgeInvalid ? 'You must be between 18 and 60 years old to register.' : ''
+            );
+          }
+      
+          if (isAgeInvalid) {
+            dobError.style.display = 'block';
+            dobError.textContent = dobInput.validationMessage;
+          } else {
+            dobError.style.display = 'none';
+          }
+        });
+      
+        document.getElementById('loan-purpose').addEventListener('input', function () {
+          // Trigger DOB change event to validate based on the new loan type
+          document.getElementById('dob').dispatchEvent(new Event('change'));
+        });
+      </script>
+      
+      
+</body>
+</html>
+

@@ -1,0 +1,100 @@
+<!-- myapp/templates/myapp/personal_loan_eligibility.html -->
+{% extends 'authentication/header.html' %}
+{% load static %}
+
+{% block title %}Personal Loan Eligibility Criteria{% endblock %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/details.css' %}">  <!-- Link to your CSS file -->
+</head>
+ <!-- Hero Section Begin -->
+ <section class="hero" style="background-image: url('{% static 'img/about/manwithmoney1.jpg' %}'); background-size: cover; background-position: center; padding: 100px 0; color: white; text-align: center;">
+    <div class="container">
+        <h1 class="rainbow-text" style="font-size: 48px; font-weight: bold; margin-left: 400px;">ARE YOU LOOKING FOR A</h1>
+        <p class="rainbow-text"  style="font-size: 36px; font-weight: 400; margin-top: 20px; margin-left: 400px;">PERSONAL LOAN !!</p>
+        <a href="signin" class="apply-btn">Apply Now</a>
+
+    </div>
+</section>
+</section>
+<!-- Hero Section End -->
+<div class="eligibility-container">
+    <h1>Personal Loan <span>Eligibility Criteria</span></h1>
+    
+    <div class="eligibility-wrapper">
+        <!-- Salaried Employees Section -->
+        <div class="eligibility-section">
+            <h2>For Salaried Employees working in an organisation:</h2>
+            <ul>
+                <li>
+                    <div class="icon-box">01</div>
+                    <p>Minimum age of 23 years.</p>
+                </li>
+                <li>
+                    <div class="icon-box">02</div>
+                    <p>  Maximum age of 60 years at
+                        the time of loan maturity.</p>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Self-Employed Individuals Section -->
+        <div class="eligibility-section">
+            <h2>For Self-Employed Individuals:</h2>
+            <ul>
+                <li>
+                    <div class="icon-box">01</div>
+                    <p>Business existence of three years minimum.</p>
+                </li>
+                <li>
+                    <div class="icon-box">02</div>
+                    <p>Minimum age of 25 years.</p>
+                </li>
+                <li>
+                    <div class="icon-box">03</div>
+                    <p>c.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+  <!-- Documents  -->
+<div class="eligibility-container">
+    <h1>Personal Loan <span>Required Documents</span></h1>
+    
+    <div class="eligibility-wrapper">
+ 
+        <!-- Salaried Employees Section -->
+        <div class="eligibility-section">
+            <ul>
+                <li>
+                    <div class="icon-box">01</div>
+                    <p>Last 3 Months Bank Statements</p>
+                </li>
+                <li>
+                    <div class="icon-box">02</div>
+                    <p>3 Latest Salary Slip with the latest Form 16</p>
+                </li>
+                <li>
+                    <div class="icon-box">03</div>
+        
+                        <p>KYC documents: (any one from the list mentioned below)</p>
+                        
+            
+                </li>
+                <li>
+                    <div class="kyc-info">
+                    <ul class="kyc-list">
+                        <li>&rarrhk;  Passport</li>
+                        <li>&rarrhk;  Driving license</li>
+                        <li>&rarrhk;  PAN Card</li>
+                        <li>&rarrhk;  Aadhaar Card with date of birth</li>
+                        <li>&rarrhk;  Voters ID</li>
+                    </ul>
+                    </div>
+                </li>
+                
+            </ul>
+        </div>
+{% endblock %}

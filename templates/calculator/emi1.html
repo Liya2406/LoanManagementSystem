@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Applications and EMI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .loan-application {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input, select {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Loan Applications</h2>
+
+{% for application in applications %}
+<div class="loan-application">
+    <h3>Application Number: {{ application.application_number }}</h3>
+    <p><strong>Name:</strong> {{ application.first_name }}</p>
+    <p><strong>Email:</strong> {{ application.email }}</p>
+    <p><strong>Loan Amount:</strong> ${{ application.loan_amount }}</p>
+    <p><strong>Loan Purpose:</strong> {{ application.loan_purpose }}</p>
+
+    <h4>Calculate Your EMI</h4>
+    <label for="loanTenure{{ application.id }}">Loan Tenure (in years):</label>
+    <input type="number" id="loanTenure{{ application.id }}" placeholder="Enter tenure in years" required>
+    <button onclick="calculateEMI({{ application.loan_amount }}, '{{ application.loan_purpose }}', {{ application.id }})">Calculate EMI</button>
+    <div class="result" id="result{{ application.id }}"></div>
+</div>
+{% endfor %}
+
+<script>
+    function calculateEMI(loanAmount, loanPurpose, 5) {
+        const loanTenure = parseFloat(document.getElementById(`loanTenure${5}`).value) * 12; // Convert years to months
+
+        // Set interest rates based on loan purpose
+        let interestRate;
+        switch (loanPurpose) {
+            case 'Home Loan':
+                interestRate = 0.06; // 6%
+                break;
+            case 'Car Loan':
+                interestRate = 0.07; // 7%
+                break;
+            case 'Education Loan':
+                interestRate = 0.08; // 8%
+                break;
+            case 'Health Loan':
+                interestRate = 0.09; // 9%
+                break;
+            case 'Personal Loan':
+                interestRate = 0.10; // 10%
+                break;
+            default:
+                interestRate = 0.10; // Default to personal loan rate
+        }
+
+        // Calculate EMI
+        const monthlyInterestRate = interestRate / 12;
+        const emi = (loanAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, loanTenure)) / 
+                     (Math.pow(1 + monthlyInterestRate, loanTenure) - 1);
+        
+        // Display result
+        document.getElementById(`result${applicationId}`).innerText = `Your Monthly EMI is: $${emi.toFixed(2)}`;
+    }
+</script>
+
+</body>
+</html>

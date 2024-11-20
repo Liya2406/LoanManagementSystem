@@ -1,0 +1,248 @@
+
+{% load static %}
+{% block extra_css %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* Container styles */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Full height of the viewport */
+        margin-top: 0;
+    }
+    .signup-container p {
+        color: #a9a9a9; /* Light gray color */
+        font-size: 14px; /* Adjust size as needed */
+        opacity: 0.7; /* Makes the text slightly transparent */
+    }
+    
+    /* Signup container styles */
+    .signin-container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        width: 400px;
+        margin-top: -80px;
+    }
+    
+    /* Header styles */
+    .signin-container h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+    
+    /* Input box styles */
+    .input-box {
+        margin-bottom: 15px;
+    }
+    
+    /* Input field styles */
+    .input-box input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+    }
+    
+    .input-box input:focus {
+        border-color: #007bff; /* Change border color on focus */
+        outline: none; /* Remove default outline */
+    }
+    
+    /* Button styles */
+    .button {
+        text-align: center;
+    }
+    
+    .button button {
+        width: 100%;
+            padding: 14px;
+            background-color: #f9a825;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+    }
+    
+    .button button:hover {
+        background-color: #eb8c07; /* Darker shade on hover */
+    }
+    /* Back to website link */
+    .back-link-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+        margin-bottom: 5px;
+    }
+    .back-link-container a {
+        color: #6C3483;  /* Purple color */
+        font-size: 16px;
+        text-decoration: none;
+    }
+    .back-link {
+        font-size: 16px;
+        color: #6a1b9a;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
+    /* Modal styles */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed;
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    }
+    
+    .modal-content {
+        background-color: #fff;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 300px; /* Could be more or less, depending on screen size */
+        border-radius: 8px;
+    }
+    
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    /* Alert message styles */
+    #modalMessage {
+        margin: 10px 0;
+        font-size: 16px;
+        color: #333;
+    }
+    
+</style>
+{% endblock %}
+{% block content %}
+    <title>Register Page</title>
+    <!-- Link to the external CSS file -->
+    <script>
+        function showAlert(message) {
+            const modal = document.getElementById("alertModal");
+            const modalMessage = document.getElementById("modalMessage");
+            modalMessage.textContent = message;
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("alertModal").style.display = "none";
+        }
+
+        function validateForm() {
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            // Validate name: Only letters allowed
+            const nameRegex = /^[A-Za-z]+$/;
+            if (!nameRegex.test(name)) {
+                showAlert("Name must contain only alphabetic characters.");
+                return false;
+            }
+
+            // Validate phone number: 10 digits, should not start with 0
+            const phoneRegex = /^[1-9]\d{9}$/;
+            if (!phoneRegex.test(phone)) {
+                showAlert("Phone number must be 10 digits long and cannot start with 0.");
+                return false;
+            }
+
+            // Validate email: must contain '@' and end with 'gmail.com'
+            if (!email.includes('@') || !email.endsWith('gmail.com')) {
+                showAlert("Email must contain '@' and end with 'gmail.com'.");
+                return false;
+            }
+
+            // Validate password: strong password requirements
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+            if (!passwordRegex.test(password)) {
+                showAlert("Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character.");
+                return false;
+            }
+
+            alert("Registration successful!"); // Optional: alert for successful validation
+            return true; // Allow form submission
+        }
+    </script>
+</head>
+<div class="back-link-container">
+    <a href="{% url 'home' %}" class="back-link">&laquo; Back to website</a>
+</div>
+    <div class="container">
+        <div class="signin-container">
+            <h1>Register</h1>
+            <p>Already have an account? <a href="{% url 'signin' %}">Sign in</a></p>
+            <form action="" method="post" onsubmit="return validateForm();">
+                {% csrf_token %}
+                <div class="input-box">
+                    <input type="text" name="name" id="name" placeholder="Name" required>
+                </div>
+                <div class="input-box">
+                    <input type="text" name="phone" id="phone" placeholder="Phone" required>
+                </div>
+                <div class="input-box">
+                    <input type="email" name="email" id="email" placeholder="Email" required>
+                </div>
+                <div class="input-box">
+                    <input type="text" name="uname" id="uname" placeholder="Username" required>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <div class="button">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+
+    <!-- Custom Modal -->
+    <div id="alertModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Alert</h2>
+            <p id="modalMessage"></p>
+            <button onclick="closeModal()">OK</button>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+

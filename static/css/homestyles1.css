@@ -1,0 +1,441 @@
+.rainbow {
+    font-size: 48px;
+    font-weight: bold;
+    background:rgb(23, 23, 22);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+.rainbow1 {
+    font-size: 48px;
+    font-weight: bold;
+    background:rgb(71, 139, 2);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    display: inline-block;
+   
+}
+/* General styling for the navigation link */
+
+
+/* Add a down arrow to the dropdown */
+
+
+/* Dropdown menu styling */
+ul.dropdown {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: none;  /* Initially hidden */
+    position: absolute;
+    background-color: rgb(219, 49, 49);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Soft shadow for better look */
+    padding: 10px 0;
+    min-width: 300px;  /* Ensure a fixed width */
+    z-index: 1000;  /* Ensure it appears above other elements */
+}
+
+/* Show dropdown when hovering on Loan Options */
+li:hover > ul.dropdown {
+    display: block;
+}
+
+/* Dropdown items styling */
+ul.dropdown li {
+    padding: 8px 20px;  /* Adds spacing between the items */
+    white-space: nowrap;  /* Prevent text from wrapping */
+}
+
+ul.dropdown li:hover {
+    background-color: #f7a486;  /* Change background on hover */
+}
+
+/* Styling for dropdown links */
+ul.dropdown li a {
+    text-decoration: none;
+    color: black;  /* Customize color */
+    display: block;
+    width: 100%;
+}
+
+/* Hover effect for dropdown links */
+ul.dropdown li a:hover {
+    color: #ff6600;  /* Customize hover color */
+}
+
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Header */
+.header {
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header__top {
+    background-color: #333;
+    padding: 10px 0;
+}
+
+.header__top .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__top__widget {
+    display: flex;
+    align-items: center;
+}
+
+.header__top__widget li {
+    color: #fff;
+    margin-right: 20px;
+    font-size: 14px;
+}
+
+.header__top__widget li i {
+    margin-right: 5px;
+}
+
+.header__top__language {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.header__top__language img {
+    width: 20px;
+    height: auto;
+    vertical-align: middle;
+}
+
+.header__top__language span {
+    color: #fff;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.header__top__language ul {
+    display: none;
+    background-color: #fff;
+    position: absolute;
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.header__top__language:hover ul {
+    display: block;
+}
+
+.header__top__language ul li {
+    list-style: none;
+    padding: 5px 0;
+}
+
+.header__top__language ul li a {
+    color: #333;
+    text-decoration: none;
+}
+
+/* Logo and Menu Section */
+.header__main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.header__logo img {
+    max-width: 150px;
+}
+
+.header__nav {
+    display: flex;
+    align-items: center;
+}
+
+.header__menu ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.header__menu ul li {
+    margin-left: 20px;
+    position: relative;
+}
+
+.header__menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    padding: 10px 15px;
+}
+
+.header__menu ul li a:hover {
+    color: #eb5f08;
+}
+
+.header__menu ul li.active a {
+    color: #da6b09; /* Change to your desired active color */
+    
+}
+
+.header__menu ul li .dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.header__menu ul li:hover .dropdown {
+    display: block;
+}
+
+.header__menu ul li .dropdown li {
+    margin: 10px 0;
+}
+
+.header__menu ul li .dropdown li a {
+    color: #333;
+    text-decoration: none;
+}
+
+.header__search {
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.header__search i {
+    font-size: 18px;
+    color: #333;
+}
+/*loans*/
+/* .loan-services {
+	padding-bottom: 0;
+	padding-top: 90px;
+	background: #f6f7f9;
+    
+}
+
+.loan__services__list {
+	margin-left: -15px;
+	margin-right: -15px;
+	overflow: hidden;
+}
+
+.loan__services__item {
+	width: 20%;
+	float: left;
+	height: 480px;
+	position: relative;
+	overflow: hidden;
+	border-radius: 2px;
+}
+
+.loan__services__item:hover .loan__services__item__text {
+	bottom: 40px;
+}
+
+.loan__services__item:hover .loan__services__item__text h4 {
+	margin-bottom: 12px;
+}
+
+.loan__services__item__text {
+	position: absolute;
+	left: 0;
+	bottom: -150px;
+	width: 100%;
+	padding: 0 35px;
+	-webkit-transition: all, 0.4s;
+	-o-transition: all, 0.4s;
+	transition: all, 0.4s;
+}
+
+.loan__services__item__text h4 {
+	font-weight: 700;
+	color: #ffffff;
+	margin-bottom: 80px;
+	-webkit-transition: all, 0.2s;
+	-o-transition: all, 0.2s;
+	transition: all, 0.2s;
+}
+
+.loan__services__item__text h4 span {
+	color: #88C417;
+}
+
+.loan__services__item__text p {
+	color: #ffffff;
+	margin-bottom: 25px;
+    font-style: italic;
+}
+
+.loan__services__item__text a {
+	font-size: 12px;
+	color: #ffffff;
+	font-weight: 900;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	padding: 4px 0;
+	position: relative;
+}
+
+.loan__services__item__text a:after {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 2px;
+	width: 100%;
+	background: #88C417;
+	content: "";
+} */
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .header__main {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header__menu ul {
+        flex-direction: column;
+        display: none;
+        background-color: #ffff;
+        padding: 20px;
+        position: absolute;
+        top: 100%;
+        width: 100%;
+    }
+
+    .header__menu ul li {
+        margin-bottom: 15px;
+    }
+
+    .canvas__open {
+        display: block;
+        cursor: pointer;
+    }
+
+    .canvas__open.active + .header__menu ul {
+        display: flex;
+    }
+}
+.donate-container {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.donate-button {
+    background-color: #0070ba;
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.donate-button:hover {
+    background-color: #005c9e;
+}
+
+.donate-text {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.loan-container {
+background-color:#e0e0e0;
+border-radius: 8px;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+padding: 20px;
+margin: 20px 0;
+}
+
+.loan-container h2 {
+text-transform: uppercase;
+font-size: 24px;
+color: #000000;
+border-bottom: 2px solid #000000;
+padding-bottom: 10px;
+}
+.h h1 {
+display: flex; /* Use Flexbox for alignment */
+justify-content: center; /* Center contents horizontally */
+align-items: center; /* Center contents vertically */
+color: #008080;
+font-size: 48px;
+}
+.loan-container h3 {
+color: #008080;
+margin-top: 15px;
+
+}
+.loan-container ul {
+list-style-type: none;
+padding-left: 30px;
+}
+
+.loan-container li {
+margin: 5px 0;
+}
+.apply-btn {
+display: inline-block;
+padding: 12px 25px;
+font-size: 16px;
+font-weight: bold;
+color: white; /* Button text color */
+background-color: #008080; /* Blue background */
+border: none;
+border-radius: 5px; /* Rounded corners */
+text-align: center;
+text-decoration: none; /* Remove underline from link */
+transition: background-color 0.3s ease; /* Smooth transition effect */
+}
+
+.apply-btn:hover {
+background-color: #006666; /* Darker blue on hover */
+}
+
+.apply-btn:active {
+background-color: #008080; /* Even darker blue when clicked */
+}
+
+
+.apply-btn {
+display: inline-block; /* Keeps the button inline with the <h1> */
+padding: 12px 25px;
+font-size: 16px;
+font-weight: bold;
+color: white;
+background-color: #006666; /* Darker teal background */
+border: none;
+border-radius: 5px;
+text-align: center;
+text-decoration: none;
+transition: background-color 0.3s ease;
+}
+
+.apply-btn:hover {
+background-color: #004d4d; /* Darker on hover */
+}
+
+.apply-btn:active {
+background-color: #003333; /* Darkest on click */
+}

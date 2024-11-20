@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}Responsive Header{% endblock %}</title>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="{% static 'css/ploan.css' %}">
+
+    <!-- Block for additional styles that can be added in child templates -->
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <ul class="header__top__widget">
+                    <li><i class="fa fa-map-marker"></i> 96 Ernser Vista Suite 437, NY, US</li>
+                    <li><i class="fa fa-phone"></i> (123) 456-78-910</li>
+                    <li><i class="fa fa-envelope"></i> Info@colorlib.com</li>
+                </ul>
+                <div class="header__top__language">
+                    <img src="{% static 'img/flag.png' %}" alt="Flag">
+                    <span>English</span>
+                    <i class="fa fa-angle-down"></i>
+                    <ul>
+                        <li><a href="#">English</a></li>
+                        <li><a href="#">Bangla</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="header__main">
+                <div class="header__logo">
+                    <a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
+                </div>
+                <div class="header__nav">
+                    <nav class="header__menu">
+                        <ul>
+                            <li><a href="{% url 'home' %}">Home</a></li>
+                            
+                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Loan Options &#9662;</a>
+                                <ul class="dropdown">
+                                    <li><a href="{% url 'ploan' %}">Personal Loan</a></li>
+                                    <li><a href="#">Education Loan</a></li>
+                                    <li><a href="#">Health Loan</a></li>
+                                    <li><a href="#">Home Loan</a></li>
+                                    <li><a href="#">Car Loan</a></li>
+                                </ul>
+                            </li>
+                            <li class="active"><a href="{% url 'signin' %}">Login</a></li>
+                            <li><a href="{% url 'signup' %}">Register</a></li>
+                        </ul>
+                    </nav>
+
+                    
+                    <div class="header__search">
+                        <i class="fa fa-search search-switch"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content Block where child templates can insert their own content -->
+    <main>
+        {% block content %}
+        <!-- Default content can be placed here -->
+        {% endblock %}
+    </main>
+    
+    <!-- Footer Section Begin -->
+    <footer>
+        <!-- Footer content here (if you want to add) -->
+    </footer>
+
+    <!-- External JavaScript -->
+    <script src="{% static 'js/home.js' %}"></script>
+
+    <!-- Block for additional scripts that can be added in child templates -->
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

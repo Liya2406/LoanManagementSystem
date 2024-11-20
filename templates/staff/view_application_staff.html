@@ -1,0 +1,243 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff View Loan Application</title>
+    <link rel="stylesheet" href="{% static 'css/staff/view.css' %}">
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #34495e;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .form-section {
+            margin-bottom: 20px;
+        }
+
+        .form-section h3 {
+            font-size: 18px;
+            color: #2c3e50;
+            border-bottom: 1px solid #95A5A6;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        p strong {
+            color: #2c3e50;
+        }
+
+        /* Styling for Document Gallery */
+        .document-gallery {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .document-item {
+            width: calc(33.333% - 10px);
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .document-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 5px;
+            border-radius: 4px;
+        }
+
+        /* Styling for Status and Comments Form */
+        form {
+            margin-top: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 15px;
+            color: #34495e;
+            margin-top: 10px;
+        }
+
+        select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: white;
+            background-color: #27ae60;
+            border: none;
+            border-radius: 5px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #219150;
+        }
+
+        /* Back Link Styling */
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Application Details</h2>
+
+        <div class="form-section">
+            <p><strong>Application Number:</strong> {{ application.application_number }}</p>
+            <p><strong>Name:</strong> {{ application.first_name }} {{ application.last_name }}</p>
+            <p><strong>Loan Purpose:</strong> {{ application.loan_purpose }}</p>
+            <p><strong>Loan Amount:</strong> {{ application.loan_amount }}</p>
+            <p><strong>Annual Income:</strong> {{ application.annual_income }}</p>
+            <p><strong>DOB:</strong> {{ application.dob }}</p>
+            <p><strong>Marital Status:</strong> {{ application.marital_status }}</p>
+            <p><strong>Email:</strong> {{ application.email }}</p>
+            <p><strong>Phone:</strong> {{ application.phone }}</p>
+            <p><strong>Address:</strong> {{ application.address }}, {{ application.address2 }}</p>
+            <p><strong>City:</strong> {{ application.city }}</p>
+            <p><strong>State:</strong> {{ application.state }}</p>
+            <p><strong>Zip:</strong> {{ application.zip }}</p>
+            <p><strong>Residence Duration:</strong> {{ application.residence_duration }}</p>
+            <p><strong>Employer:</strong> {{ application.employer }}</p>
+            <p><strong>Occupation:</strong> {{ application.occupation }}</p>
+            <p><strong>Experience:</strong> {{ application.experience }}</p>
+            <p><strong>Monthly Income:</strong> {{ application.monthly_income }}</p>
+            <p><strong>Bank Name:</strong> {{ application.bank_name }}</p>
+            <p><strong>Account Number:</strong> {{ application.account_number }}</p>
+            <p><strong>Bank Address:</strong> {{ application.bank_address }}</p>
+            <p><strong>Bank Phone:</strong> {{ application.bank_phone }}</p>
+            <p><strong>Consent Given:</strong> {{ application.consent|yesno:"Yes,No" }}</p>
+            <p><strong>Status:</strong> {{ application.Application_status }}</p>
+        </div>
+
+        <div class="form-section">
+            <h3>Uploaded Documents</h3>
+            <div class="document-gallery">
+                {% if application.document1 %}
+                    <div class="document-item">
+                        <p>Document 1:</p>
+                        <img src="{{ application.document1.url }}" alt="Document 1" class="document-image">
+                    </div>
+                {% endif %}
+                {% if application.document2 %}
+                    <div class="document-item">
+                        <p>Document 2:</p>
+                        <img src="{{ application.document2.url }}" alt="Document 2" class="document-image">
+                    </div>
+                {% endif %}
+                {% if application.document3 %}
+                    <div class="document-item">
+                        <p>Document 3:</p>
+                        <img src="{{ application.document3.url }}" alt="Document 3" class="document-image">
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="form-section">
+            <h3>Change Application Status</h3>
+
+            <form method="post" action="{% url 'update_application_status' application.id %}" onsubmit="return validateForm()">
+                {% csrf_token %}
+                <label for="status">Select Status:</label>
+                <select name="action" id="status" required onchange="toggleRejectionComments()"
+                    {% if application.Application_status == 'Eligible' or application.Application_status == 'Rejected' %}disabled{% endif %}>
+                    <option value="">Select Action</option>
+                    <option value="pending" {% if application.Application_status == 'Pending' %}selected{% endif %}>Pending</option>
+                    <option value="eligible" {% if application.Application_status == 'Eligible' %}selected{% endif %}>Eligible</option>
+                    <option value="reject" {% if application.Application_status == 'Rejected' %}selected{% endif %}>Reject</option>
+                </select>
+                
+                <label for="rejection_comments">Rejection Comments (if applicable):</label>
+                <textarea name="rejection_comments" id="rejection_comments" rows="4" placeholder="Enter rejection comments if any" required>{{ application.Add_rejection_comments }}</textarea>
+
+                
+                <button type="submit" {% if application.Application_status == 'Eligible' or application.Application_status == 'Rejected' %}disabled{% endif %}>Submit</button>
+            </form>
+        </div>
+        
+        <a href="{% url 'loan_applications' %}" class="back-link">Back to Applications</a>
+        
+        <script>
+        function toggleRejectionComments() {
+            var statusSelect = document.getElementById('status');
+            var rejectionCommentsTextarea = document.getElementById('rejection_comments');
+            
+            // Enable or disable the rejection comments textarea based on selected status
+            if (statusSelect.value === 'reject') {
+                rejectionCommentsTextarea.required = true; // Make comments required
+            } else {
+                rejectionCommentsTextarea.required = false; // Make comments not required
+                rejectionCommentsTextarea.value = ''; // Clear the textarea
+            }
+        }
+        
+        function validateForm() {
+            var statusSelect = document.getElementById('status');
+            var rejectionCommentsTextarea = document.getElementById('rejection_comments');
+        
+            // Check if the status is 'reject' and comments are empty
+            if (statusSelect.value === 'reject' && rejectionCommentsTextarea.value.trim() === '') {
+                return false; // Prevent form submission
+            }
+            return true; // Allow form submission
+        }
+            </script>
+        
+    
+</body>
+</html>
+

@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Responsive Header</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/homestyles1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/loanhome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/homenew.scss' %}">
+    <style>
+     
+    </style>   
+</head>
+
+<body>
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <ul class="header__top__widget">
+                    <li><i class="fa fa-map-marker"></i> 96 EAST FORT 437, TCR, KL</li>
+                    <li><i class="fa fa-phone"></i> (91)815686342</li>
+                    <li><i class="fa fa-envelope"></i>  loandaylia@gmail.com</li>
+                </ul>
+                
+                <div class="header__top__language">
+                    <img src="{% static 'img/flag.png' %}" alt="">
+                    <span>English</span>
+                    <i class="fa fa-angle-down"></i>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="header__main">
+                <div class="header__logo">
+                    <a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
+                </div>
+                <div class="header__nav">
+                    <nav class="header__menu">
+                        <ul>
+                            <li class="active"><a href="{% url 'home' %}">Home</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Loan Options &#9662;</a>
+                                <ul class="dropdown">
+                                    <li><a href="{% url 'ploan' %}">Personal Loan</a></li>
+                                    <li><a href="#">Education Loan</a></li>
+                                    <li><a href="#">Health Loan</a></li>
+                                    <li><a href="#">Home Loan</a></li>
+                                    <li><a href="#">Car Loan</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Login &#9662;</a>
+                                <ul class="dropdown">
+                                    <li><a href="{% url 'signin' %}">Customer Login</a></li>
+                                    <li><a href="{% url 'staff_login' %}">Staff Login</a></li>
+                                    
+                                </ul></li>
+                            <li><a href="{% url 'signup' %}">Register</a></li>
+                            <li><a href="{% url 'emi' %}">EMI CALCULATOR</a></li>
+                        </ul>
+                    </nav>
+                    <div class="header__search">
+                        <i class="fa fa-search search-switch"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section END -->
+
+
+    
+    <!-- Hero Section Begin -->
+    <section class="hero" style="background-image: url('{% static 'img/about/manwithmoney1.jpg' %}'); background-size: cover; background-position: center; padding: 100px 0; color: white; text-align: center;">
+        <div class="container">
+            <h1 class="rainbow" style="font-size: 48px; font-weight: bold; margin-left: 400px;">EMPOWER YOUR DREAMS WITH</h1>
+            <p class="rainbow1" style="font-size: 36px; font-weight: 400; margin-top: 20px; margin-left: 400px;">OUR FLEXIBLE LOAN OPTIONS!!</p>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <section class="loan-services spad" style="background-color:#D3D3D3;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Discover all the loans for you</h2>
+                        <p>If you try to cut corners on your brochure you will end up spending more money</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="h">
+            <h1>Available Loans</h1>
+            <div class="loan__services__list">
+                <pre>{{ applied_loan_ids }}</pre> 
+                {% for loan in loans %}
+                    <div class="loan__services__item loan-container">
+                    <h2>{{ loan.title }}</h2>
+                    <h3>Required Documents:</h3>
+                    <ul>
+                        {% for doc in loan.required_documents.splitlines %}
+                            <li> &rarrhk; {{ doc }}</li>
+                        {% endfor %}
+                    </ul>
+                    <h3>Eligibility Criteria:</h3>
+                    <ul>
+                    {% for criteria in loan.eligibility_criteria.splitlines %}
+                        <li> &rarrhk; {{ criteria }}</li>
+                    {% endfor %}
+                    <div class="loan__services__item__text">
+                    <a href="signin" class="apply-btn">Apply Now</a>
+                </div>
+            </div>
+                {% endfor %}
+            </div>
+        </div>
+<!-- Donation Section Begin -->
+<div class="center">
+    <div class="w3-card-4" style="max-width: 300px; margin: auto; padding: 10px;">
+        <header class="w3-container w3-blue" style="padding: 5px;">
+            <h1 style="font-size: 1.5em;">DONATE</h1>
+        </header>
+        <div class="w3-container" style="padding: 5px;">
+            <p style="font-size: 0.9em;">Donate for a great cause. Be a hero.</p>
+
+            <!-- Input field to specify donation amount -->
+            <label for="donation-amount" style="font-size: 0.9em;">Enter donation amount:</label>
+
+            <!-- Set up a container element for the button -->
+            <div id="paypal-button-container" style="margin-top: 10px;"></div>
+                    <!-- PayPal Script -->
+                    <script src="https://www.paypal.com/sdk/js?client-id=ATOF-qnUbqTdDL9pUQ75aDeQ6NI8X8MIAq7oaVh1zhYzZXe_PuAqpMCBqtgjlxialeB1-Gr04IrNHcX0&currency=USD"></script>
+                    
+                    <script>
+                        // Render the PayPal button into #paypal-button-container
+                        paypal.Buttons({
+                
+                            // Call your server to set up the transaction
+                            createOrder: function(data, actions) {
+                                return actions.order.create({
+                                    purchase_units: [{
+                                        amount: {
+                                            value: '50'
+                                        }
+                                    }]
+                                });
+                            },
+                
+                            // Call your server to finalize the transaction
+                            onApprove: function(data, actions) {
+                                return actions.order.capture().then(function(details) {
+                                    alert('Transaction completed by' + details.payer.name.given_name + '!');
+                                });
+                             }
+                
+                        }).render('#paypal-button-container');
+                  
+                    </script>
+                </div>
+            </div>
+        </h3>
+    </div>
+    <!-- Donation Section End -->
+    
+    <script src="{% static 'js/main.js' %}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+</body>
+</html>
+
+

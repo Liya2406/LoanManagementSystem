@@ -1,0 +1,65 @@
+<!-- staff_dashboard.html -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Responsive Header</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/homestyles1.css' %}">
+</head>
+<body>
+    
+       
+
+<header>
+
+    <div class="container">
+        <div class="header__main">
+            <div class="header__logo">
+                <a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
+            </div>
+            <div class="header__nav">
+                <nav class="header__menu">
+                    <ul>
+                        <li class="active"><a href="{% url 'staff_dashboard' %}">Available Loans</a></li>
+                        <li class="active"><a href="{% url 'loan_applications' %}">Loan Applications</a></li> <!-- Update this line -->
+                        <li>Welcome {{ staff_name }}</li>
+                        <li>Employee ID: {{ employee_id }} </li>
+                        <li> <a href="{% url 'home' %}" class="btn btn-secondary">Log Out</a></li>
+                    </ul>
+                            <!-- Additional content for the dashboard can go here -->
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+</header>
+<div class="h">
+    <h1>STAFF DASHBOARD</h1>
+    <h2>Available Loans</h2>
+    </div>
+    <div class="loan-container">
+        <pre>{{ applied_loan_ids }}</pre> 
+        {% for loan in loans %}
+            <h2>{{ loan.title }}</h2>
+            <h3>Required Documents:</h3>
+            <ul>
+                {% for doc in loan.required_documents.splitlines %}
+                    <li> &rarrhk; {{ doc }}</li>
+                {% endfor %}
+            </ul>
+            <h3>Eligibility Criteria:</h3>
+            <ul>
+            {% for criteria in loan.eligibility_criteria.splitlines %}
+                <li> &rarrhk; {{ criteria }}</li>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+<!-- Header Section END -->
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Loan Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .submit-btn {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 20px 0;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+     <!-- Back to Website Link -->
+     
+
+    <div class="form-container">
+        <div class="back-link-container">
+           <center> <a href="{% url 'my_applications' %}" class="back-link">&laquo; Back to my appliations</a></center>
+        </div>
+        <h1>Edit Loan Application</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- Existing fields -->
+            <div class="form-group">
+                <label for="loan-amount">Loan Amount $</label>
+                <input type="number" id="loan-amount" name="loan_amount" value="{{ application.loan_amount }}" required>
+            </div>
+            <div class="form-group">
+                <label for="annual-income">Annual Income $</label>
+                <input type="number" id="annual-income" name="annual_income" value="{{ application.annual_income }}" required>
+            </div>
+            <div class="form-group">
+                <label for="loan-purpose">Loan Purpose</label>
+                <input type="text" id="loan-purpose" name="loan_purpose" value="{{ application.loan_purpose }}" required>
+            </div>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" value="{{ application.title }}">
+            </div>
+            <div class="form-group">
+                <label for="first-name">First Name</label>
+                <input type="text" id="first-name" name="first_name" value="{{ application.first_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="last-name">Last Name</label>
+                <input type="text" id="last-name" name="last_name" value="{{ application.last_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="dob">Birth of Date</label>
+                <input type="date" id="dob" name="dob" value="{{ application.dob }}" required>
+            </div>
+            <div class="form-group">
+                <label for="marital-status">Marital Status</label>
+                <select id="marital-status" name="marital_status" required>
+                    <option value="single" {% if application.marital_status == "single" %}selected{% endif %}>Single</option>
+                    <option value="married" {% if application.marital_status == "married" %}selected{% endif %}>Married</option>
+                    <option value="other" {% if application.marital_status == "other" %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" value="{{ application.email }}" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" value="{{ application.phone }}" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" value="{{ application.address }}" required>
+            </div>
+            <div class="form-group">
+                <label for="address2">Address Line 2</label>
+                <input type="text" id="address2" name="address2" value="{{ application.address2 }}">
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" value="{{ application.city }}" required>
+            </div>
+            <div class="form-group">
+                <label for="state">State</label>
+                <input type="text" id="state" name="state" value="{{ application.state }}" required>
+            </div>
+            <div class="form-group">
+                <label for="zip">Postal Code</label>
+                <input type="text" id="zip" name="zip" value="{{ application.zip }}" required>
+            </div>
+            <div class="form-group">
+                <label>Residence Duration</label>
+                <select name="residence_duration" required>
+                    <option value="0-1" {% if application.residence_duration == "0-1" %}selected{% endif %}>0-1 Year</option>
+                    <option value="1-2" {% if application.residence_duration == "1-2" %}selected{% endif %}>1-2 Years</option>
+                    <option value="3-4" {% if application.residence_duration == "3-4" %}selected{% endif %}>3-4 Years</option>
+                    <option value="5+" {% if application.residence_duration == "5+" %}selected{% endif %}>5+ Years</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="employer">Present Employer</label>
+                <input type="text" id="employer" name="employer" value="{{ application.employer }}" required>
+            </div>
+            <div class="form-group">
+                <label for="occupation">Occupation</label>
+                <input type="text" id="occupation" name="occupation" value="{{ application.occupation }}" required>
+            </div>
+            <div class="form-group">
+                <label for="experience">Years of Experience</label>
+                <select name="experience" required>
+                    <option value="0-1" {% if application.experience == "0-1" %}selected{% endif %}>0-1 Year</option>
+                    <option value="1-2" {% if application.experience == "1-2" %}selected{% endif %}>1-2 Years</option>
+                    <option value="3-4" {% if application.experience == "3-4" %}selected{% endif %}>3-4 Years</option>
+                    <option value="5+" {% if application.experience == "5+" %}selected{% endif %}>5+ Years</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="monthly-income">Gross Monthly Income</label>
+                <input type="number" id="monthly-income" name="monthly_income" value="{{ application.monthly_income }}" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="bank-name">Bank Name</label>
+                <input type="text" id="bank-name" name="bank_name" value="{{ application.bank_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="account-number">Account Number</label>
+                <input type="text" id="account-number" name="account_number" value="{{ application.account_number }}" required>
+            </div>
+            <div class="form-group">
+                <label for="bank-address">Bank Address</label>
+                <input type="text" id="bank-address" name="bank_address" value="{{ application.bank_address }}" required>
+            </div>
+            <div class="form-group">
+                <label for="bank-phone">Bank Phone</label>
+                <input type="tel" id="bank-phone" name="bank_phone" value="{{ application.bank_phone }}" required>
+            </div>
+
+            <!-- Document Upload Fields -->
+            <div class="form-group">
+                <label for="document1">Upload Document 1 -Proof of address(Image)</label>
+                {% if application.document1 %}
+                    <img src="{{ application.document1.url }}" alt="Current Document 1" style="width: 150px;">
+                    <p>Current file: <a href="{{ application.document1.url }}">{{ application.document1.name }}</a></p>
+                {% endif %}
+                <input type="file" id="document1" name="document1">
+            </div>
+            
+            <div class="form-group">
+                <label for="document2">Document 2- family income certificate(Image)</label>
+                {% if application.document2 %}
+                    <img src="{{ application.document2.url }}" alt="Current Document 2" style="width: 150px;">
+                    <p>Current file: <a href="{{ application.document2.url }}">{{ application.document2.name }}</a></p>
+                {% endif %}
+                <input type="file" id="document2" name="document2">
+            </div>
+            
+            <div class="form-group">
+                <label for="document3">Document 3- proof of date of birth(Image)</label>
+                {% if application.document3 %}
+                    <img src="{{ application.document3.url }}" alt="Current Document 3" style="width: 150px;">
+                    <p>Current file: <a href="{{ application.document3.url }}">{{ application.document3.name }}</a></p>
+                {% endif %}
+                <input type="file" id="document3" name="document3">
+            </div>
+            
+
+            <div class="form-group">
+                <button type="submit" class="submit-btn">Update Application</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+

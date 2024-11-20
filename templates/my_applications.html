@@ -1,0 +1,227 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Applications</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        a {
+            text-decoration: none;
+            color: #4CAF50; /* Green */
+            margin-right: 10px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .status-rejected {
+            color: red; /* Red for rejected */
+        }
+        
+        .status-pending {
+            color: #DAA520; /* Yellow for pending */
+        }
+        
+        .status-Eligible {
+            color: green; /* Green for Eligible */
+        }
+        /* General styles for the upload section */
+.section {
+    margin-bottom: 20px; /* Space below each section */
+    padding: 15px; /* Padding inside each section */
+    border: 1px solid #ddd; /* Light border for visual separation */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background color */
+}
+
+/* Label styles */
+label {
+    font-weight: bold; /* Bold text for labels */
+    color: #333; /* Dark color for better readability */
+    display: block; /* Block display for labels */
+    margin-bottom: 8px; /* Space below labels */
+}
+
+/* Input styles */
+input[type="file"] {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding inside the input */
+    border: 1px solid #ccc; /* Border style */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    margin-top: 5px; /* Space above the input */
+}
+
+/* Styling for buttons */
+button {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 10px 15px; /* Padding for the button */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-top: 10px; /* Space above the button */
+    font-size: 16px; /* Font size */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+/* Style for the success message */
+.success-message {
+    color: green; /* Green text color for success */
+    font-weight: bold; /* Bold text */
+    margin: 20px 0; /* Margin above and below the message */
+    text-align: center; /* Center align the message */
+}
+
+/* Error message style */
+.error-message {
+    color: red; /* Red text color for errors */
+    font-weight: bold; /* Bold text */
+    margin: 20px 0; /* Margin above and below the message */
+    text-align: center; /* Center align the message */
+}
+
+    </style>
+    <script>
+        function showPendingAlert() {
+            alert("Application already on verification process.");
+        }
+    </script>
+</head>
+<body>
+                            
+                        
+     <!-- Back to Website Link -->
+     <div class="back-link-container">
+        <a href="{% url 'personalpage' %}" class="back-link">&laquo; Back To Home</a>
+    </div>
+   
+  
+    
+    <h1>I am {{ request.session.uname }}<h1>
+    <h1>My Loan Applications</h1>
+    <table>
+        <tr>
+            <th>Application Number</th>
+            <th>First Name</th>
+            <th>Email id</th>
+            <th>Loan Amount</th>
+            <th>Loan Type</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        
+        {% for application in applications %}
+       
+                                    
+            <tr>
+                
+                <td>{{application.application_number}}</td>
+                <td>{{application.first_name}}</td>
+                <td>{{application.email}}</td>
+                <td>${{ application.loan_amount }}</td>
+                <td>{{ application.loan_purpose }}</td>
+                <td class="{% if application.Application_status == 'Rejected' %}status-rejected{% elif application.Application_status == 'Pending' %}status-pending{% elif application.Application_status == 'Eligible' %}status-Eligible{% endif %}">
+                    {{ application.Application_status }}</td>
+                
+                    <td>
+                        {% comment %} <a href="{% url 'view_application' application.id %}">View</a> | {% endcomment %}
+    
+                        {% if application.Application_status == 'Pending' %}
+                            <span onclick="alert('Application already on verification process');" style="color: grey; cursor: not-allowed;">Edit</span> |
+                            <span onclick="alert('Application already on verification process');" style="color: grey; cursor: not-allowed;">Delete</span>
+                        {% elif application.Application_status == 'Rejected' %}
+                            <span style="color: grey; cursor: not-allowed;">Edit</span> |
+                            <a href="{% url 'rejection_details' application.id %}">Rejection Reason</a> |
+                            <span style="color: grey; cursor: not-allowed;">Delete</span>
+                            {% comment %} <a href="{% url 'delete_application' application.id %}" onclick="return confirm('Are you sure you want to delete this application?');">Delete</a> {% endcomment %}
+                            {% elif application.Application_status == 'Eligible' %}
+                            <br>
+                            
+                        
+                            {% comment %} Get the agreement for this application {% endcomment %}
+                            {% with agreement=agreements_dict|get_item:application.application_number %}
+                                {% if agreement %}
+                                    <p>Status: {{ agreement.status }}</p>
+                                    {% if agreement.status == 'Pending' %}
+                                        <p>Your loan agreement is under review</p>
+                                        
+                                    {% elif agreement.status == 'Rejected' %}
+                                    <p><button type="button" onclick="showRejectionComment('{{ agreement.rejection_comment|escapejs }}')">View Rejection Comment</button></p>
+
+                                    <script>
+                                      function showRejectionComment(comment) {
+                                        alert(comment);
+                                      }
+                                    </script>
+                                    
+                                
+                                        <a href="{% url 'loan_agreement_view' application.id %}">Click here for agreement</a>.</p>
+                                    
+                                        <form action="{% url 'upload_agreement_pdf' application.application_number %}" method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <input type="file" name="pdf_file" accept=".pdf" required>
+                                            <button type="submit">Upload New PDF</button>
+                                        </form>
+                                    {% elif agreement.status == 'Approved' %}
+                                        <p> Congratulations! Your loan amount has been credited to your account..</p>
+                                        <a href="{% url 'loan_overview' application.id %}">Go to Loan Dashboard</a>.</p>
+                                    {% endif %}
+                                {% else %}
+                                <p>Application verified. You are eligible for {{ application.loan_purpose }}. 
+                                    <a href="{% url 'loan_agreement_view' application.id %}">Click here for sign agreement</a>.</p>
+                                
+                                    <h2>Upload Agreement for Application #{{ application.application_number }}</h2>
+
+                                    <form action="{% url 'upload_agreement_pdf' application.application_number %}" method="post" enctype="multipart/form-data">
+
+                                        {% csrf_token %}
+                                        <input type="file" name="pdf_file" accept=".pdf" required>
+                                        <button type="submit">Upload PDF</button>
+                                        
+                                    </form>
+                                {% endif %}
+                            {% endwith %}
+                            
+                        {% else %}
+                        
+                        
+                            <a href="{% url 'edit_application' application.id %}">Edit</a> |
+                            <a href="{% url 'delete_application' application.id %}" onclick="return confirm('Are you sure you want to delete this application?');">Delete</a>
+                        {% endif %}
+                    </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="3">No loan applications found.</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

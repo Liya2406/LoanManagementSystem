@@ -1,0 +1,217 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Loan Dashboard</title>
+    <style>
+        /* Basic styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .dashboard {
+            width: 80%;
+            max-width: 800px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            flex: 1;
+            margin: 0 10px;
+            padding: 20px;
+            text-align: center;
+            background-color: #e3f2fd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-box h2 {
+            margin: 0;
+            color: #1976d2;
+        }
+
+        .stat-box p {
+            margin: 5px 0 0;
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        /* Circular progress bar */
+        .circle {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 150px;
+            font-size: 1.5em;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .circle .progress {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(#76c7c0 {{ progress_percentage }}%, #e0e0e0 0);
+            border-radius: 50%;
+        }
+
+        /* Payment schedule */
+        .payment-schedule {
+            margin-top: 30px;
+        }
+
+        .payment-schedule table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .payment-schedule th, .payment-schedule td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .pay-button {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .pay-button:hover {
+            background-color: #218838;
+        }
+        /* Styling for the percentage text below the pie chart */
+        .progress-percentage {
+            margin-top: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="dashboard">
+        <h1>Loan Repayment Dashboard</h1>
+    
+        <!-- Loan Stats Section -->
+        <div class="stats">
+            <div class="stat-box">
+                <h2>Loan Amount</h2>
+                <p>₹{{ application.loan_amount }}</p>
+                <p>{{ application.loan_purpose }}</p>
+            </div>
+            <div class="stat-box">
+                <h2>Interest (5 years)</h2>
+                <p>{{ interest_rate }}%</p>
+            </div>
+            <div class="stat-box">
+                <h2>Total Payable</h2>
+                <p>₹{{ total_amount_payable|floatformat:0 }}</p>
+            </div>
+        </div>
+        <p>
+            ______________________________________________________________________________________
+        </p>
+    
+
+        <p>
+            _______________________________________________________________________________________
+        </p>
+        {% comment %} <!-- Circular Progress Bar -->
+        <div class="circle">
+            <div class="progress"></div>
+        </div>
+ <!-- Percentage Below the Pie Chart -->
+        <div class="progress-percentage">
+            <span>10% completed </span>
+        </div>  {% endcomment %}
+    
+        <!-- Payment Schedule Table -->
+        <div class="payment-schedule">
+            <h2><center>Monthly Payment Schedule</center></h2>
+            <table class="payment-schedule-table">
+                <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>Due Date</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for due in due_dates %}
+                        <tr>
+                            <td>{{ due.month }}</td>
+                            <td>{{ due.year }}</td>
+                            <td>₹{{ monthly_payment|floatformat:2 }}</td>  <!-- Monthly payment displayed here -->
+                            <td>{{ due.status }}</td>
+                            <td>
+                                {% if due.status == 'Pending' %}
+                                    <button class="pay-button" onclick="payLoan({{ due.payment_id }})">Pay Now</button>
+                                {% else %}
+                                    <span>Paid</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <script>
+                function payLoan(paymentId) {
+                    fetch(`/mark_payment_as_paid/${paymentId}/`, {
+                        method: 'GET',  // You can use POST if you prefer, but GET should work for this simple case
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            alert('Payment successful!');
+                            location.reload();  // Reload the page to reflect the updated status
+                        }
+                    });
+                }
+            </script>
+            
+        </div>
+    </div>
+    </body>
+    </html>
+    

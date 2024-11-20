@@ -1,0 +1,22 @@
+<!-- update_application_status.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Application Status</title>
+</head>
+<body>
+    <h1>Update Status for {{ application.first_name }} {{ application.last_name }}</h1>
+  
+    
+    
+    <form method="post">
+        {% csrf_token %}
+        <label for="rejection_comments">Rejection Comments:</label>
+        <textarea name="rejection_comments" id="rejection_comments" rows="4" placeholder="Enter rejection comments if any">{{ application.Add_rejection_comments }}</textarea>
+        <button type="submit" name="action" value="reject">Reject</button>
+    </form>
+    
+
+</body>
+</html>

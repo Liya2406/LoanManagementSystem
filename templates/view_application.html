@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Loan Application</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .form-container {
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        
+        h1 {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        
+        .form-group p {
+            background-color: #f7f9fb;
+            padding: 10px;
+            border-radius: 4px;
+            color: #333;
+            font-size: 15px;
+            margin: 0;
+            border: 1px solid #e1e5eb;
+        }
+        
+        .form-group img {
+            margin-top: 10px;
+            border-radius: 4px;
+            border: 1px solid #e1e5eb;
+            max-width: 100%;
+        }
+        
+        .form-group a {
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 5px;
+            display: inline-block;
+        }
+        
+        .form-group a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Additional styling for responsiveness */
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+            
+            .form-group label, .form-group p {
+                font-size: 14px;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    
+
+    <div class="form-container">
+         <!-- Back to Website Link -->
+     <div class="back-link-container">
+       <center> <a href="{% url 'my_applications' %}" class="back-link">&laquo; Back to applications</a></center>
+    </div>
+        <h1>View Loan Application</h1>
+        <div class="form-group">
+            <label>Loan Amount $:</label>
+            <p>{{ application.loan_amount }}</p>
+        </div>
+        <div class="form-group">
+            <label>Annual Income $:</label>
+            <p>{{ application.annual_income }}</p>
+        </div>
+        <div class="form-group">
+            <label>Loan Purpose:</label>
+            <p>{{ application.loan_purpose }}</p>
+        </div>
+        <div class="form-group">
+            <label>Title:</label>
+            <p>{{ application.title }}</p>
+        </div>
+        <div class="form-group">
+            <label>First Name:</label>
+            <p>{{ application.first_name }}</p>
+        </div>
+        <div class="form-group">
+            <label>Last Name:</label>
+            <p>{{ application.last_name }}</p>
+        </div>
+        <div class="form-group">
+            <label>Birth of Date:</label>
+            <p>{{ application.dob }}</p>
+        </div>
+        <div class="form-group">
+            <label>Marital Status:</label>
+            <p>{{ application.marital_status }}</p>
+        </div>
+        <div class="form-group">
+            <label>Email:</label>
+            <p>{{ application.email }}</p>
+        </div>
+        <div class="form-group">
+            <label>Phone:</label>
+            <p>{{ application.phone }}</p>
+        </div>
+        <div class="form-group">
+            <label>Address:</label>
+            <p>{{ application.address }}</p>
+        </div>
+        <div class="form-group">
+            <label>Address Line 2:</label>
+            <p>{{ application.address2 }}</p>
+        </div>
+        <div class="form-group">
+            <label>City:</label>
+            <p>{{ application.city }}</p>
+        </div>
+        <div class="form-group">
+            <label>State:</label>
+            <p>{{ application.state }}</p>
+        </div>
+        <div class="form-group">
+            <label>Postal Code:</label>
+            <p>{{ application.zip }}</p>
+        </div>
+        <div class="form-group">
+            <label>Residence Duration:</label>
+            <p>{{ application.residence_duration }}</p>
+        </div>
+        <div class="form-group">
+            <label>Present Employer:</label>
+            <p>{{ application.employer }}</p>
+        </div>
+        <div class="form-group">
+            <label>Occupation:</label>
+            <p>{{ application.occupation }}</p>
+        </div>
+        <div class="form-group">
+            <label>Years of Experience:</label>
+            <p>{{ application.experience }}</p>
+        </div>
+        <div class="form-group">
+            <label>Gross Monthly Income:</label>
+            <p>{{ application.monthly_income }}</p>
+        </div>
+        <div class="form-group">
+            <label>Bank Name:</label>
+            <p>{{ application.bank_name }}</p>
+        </div>
+        <div class="form-group">
+            <label>Account Number:</label>
+            <p>{{ application.account_number }}</p>
+        </div>
+        <div class="form-group">
+            <label>Bank Address:</label>
+            <p>{{ application.bank_address }}</p>
+        </div>
+        <div class="form-group">
+            <label>Bank Phone:</label>
+            <p>{{ application.bank_phone }}</p>
+        </div>
+        
+        <!-- Document Display -->
+        <div class="form-group">
+            <label>Document 1 -Proof of address(Image):</label>
+            {% if application.document1 %}
+                <img src="{{ application.document1.url }}" alt="Document 1" style="width: 150px;">
+                <p><a href="{{ application.document1.url }}">{{ application.document1.name }}</a></p>
+            {% else %}
+                <p>No Document</p>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label>Document 2- family income certificate(Image):</label>
+            {% if application.document2 %}
+                <img src="{{ application.document2.url }}" alt="Document 2" style="width: 150px;">
+                <p><a href="{{ application.document2.url }}">{{ application.document2.name }}</a></p>
+            {% else %}
+                <p>No Document</p>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label>Upload Document 3- proof of date of birth(Image):</label>
+            {% if application.document3 %}
+                <img src="{{ application.document3.url }}" alt="Document 3" style="width: 150px;">
+                <p><a href="{{ application.document3.url }}">{{ application.document3.name }}</a></p>
+            {% else %}
+                <p>No Document</p>
+            {% endif %}
+        </div>
+    </div>
+    {% comment %} {% if error_message %}
+    <div style="color: red;">{{ error_message }}</div>
+    {% endif %} {% endcomment %}
+</body>

@@ -1,0 +1,259 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Responsive Header</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/homestyles1.css' %}">
+    <style>
+        .loan-container {
+            background-color: #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .loan-container h2 {
+            text-transform: uppercase;
+            font-size: 24px;
+            color: #000;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+        }
+        
+        .h h1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #008080;
+            font-size: 48px;
+        }
+        
+        .loan-container h3 {
+            color: #008080;
+            margin-top: 15px;
+        }
+        
+        .loan-container ul {
+            list-style-type: none;
+            padding-left: 30px;
+        }
+        
+        .loan-container li {
+            margin: 5px 0;
+        }
+        
+        
+        .apply-btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        
+        .apply-btn:active {
+            background-color: #003d80;
+            transform: translateY(1px);
+        }
+        
+        .alert-box {
+            margin: 20px 0;
+        }
+        
+        .alert {
+            padding: 15px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            position: relative;
+        }
+        
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+        
+        .alert button {
+            background: none;
+            border: none;
+            color: #007bff;
+            cursor: pointer;
+            float: right;
+        }
+.btn-primary {
+    background-color: #007bff; /* Primary color */
+    color: #fff; /* Text color */
+    border: none; /* No border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for size */
+    font-weight: bold; /* Bold font */
+    font-size: 16px; /* Font size */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transition effects */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+}
+
+.btn-primary:active {
+    background-color: #004085; /* Even darker on click */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
+}
+.btn-primary {
+    background-color: #008080; /* Green background */
+    color: #fff; /* White text */
+    border: none; /* No border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px 20px; /* Padding */
+    font-weight: bold; /* Bold font */
+    font-size: 16px; /* Font size */
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transition effects */
+}
+
+.btn-primary:hover {
+    background-color: #218838; /* Darker green on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+}
+
+.btn-primary:active {
+    background-color: #1e7e34; /* Even darker green on click */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
+}
+  
+button[disabled] {
+    background-color: #008080; /* Teal color */
+    color: #ffffff; /* White text */
+    border: none; /* No border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px 20px; /* Padding */
+    font-weight: bold; /* Bold font */
+    font-size: 16px; /* Font size */
+    opacity: 0.7; /* Slight transparency to indicate it's disabled */
+    cursor: not-allowed; /* Show "not-allowed" cursor */
+}
+
+button[disabled]:hover {
+    background-color: #008080; /* Keep color consistent on hover */
+    box-shadow: none; /* No shadow on hover for disabled button */
+}
+
+</style>
+</head>
+
+<body>
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <ul class="header__top__widget">
+                    <li><i class="fa fa-map-marker"></i> 96 EAST FORT 437, TCR, KL</li>
+                    <li><i class="fa fa-phone"></i> (91)815686342</li>
+                    <li><i class="fa fa-envelope"></i>  loandaylia@gmail.com</li>
+                </ul>
+                <div class="header__top__language">
+                    <img src="{% static 'img/flag.png' %}" alt="">
+                    <span>English</span>
+                    <i class="fa fa-angle-down"></i>
+                    
+                </div>
+            </div>
+        </div>
+
+        {% if messages %}
+        <div id="alert-box" class="alert-box">
+            {% for message in messages %}
+                <div class="alert alert-success">
+                    {{ message }}
+                    <button onclick="dismissAlert()">OK</button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    <script>
+        function dismissAlert() {
+            var alertBox = document.getElementById('alert-box');
+            alertBox.style.display = 'none';  // Hide the alert box when OK is clicked
+        }
+    </script>
+    
+    
+
+
+        <div class="container">
+            <div class="header__main">
+                <div class="header__logo">
+                    <a href="{% url 'personalpage' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
+                </div>
+                <div class="header__nav">
+                    <nav class="header__menu">
+                        <ul>
+                            <li class="active"><a href="{% url 'personalpage' %}">Available Loans</a></li>
+                            <li class="active"><a href="{% url 'my_applications' %}">My applications</a></li>
+                            
+                            
+
+                            <li> <a href="{% url 'home' %}" class="btn btn-secondary">Log Out</a></li>
+                            <li> Welcome, {{ request.session.uname }}</li>
+                        </ul>    
+                    </nav>
+                    <div class="header__search">
+                        <i class="fa fa-search search-switch"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section END -->
+
+    <!-- Hero Section Begin -->
+
+    <!-- Hero Section End -->
+    <div class="h">
+    <h1>Available Loans</h1>
+    </div>
+    <div class="loan-container">
+        <pre>{{ applied_loan_ids }}</pre> 
+        {% for loan in loans %}
+            <div class="loan-item">
+                <h2>{{ loan.title }}</h2>
+                <h3>Required Documents:</h3>
+                <ul>
+                    {% for doc in loan.required_documents.splitlines %}
+                        <li>&rarrhk; {{ doc }}</li>
+                    {% endfor %}
+                </ul>
+                <h3>Eligibility Criteria:</h3>
+                <ul>
+                    {% for criteria in loan.eligibility_criteria.splitlines %}
+                        <li>&rarrhk; {{ criteria }}</li>
+                    {% endfor %}
+                </ul>
+    
+                <div class="application-status">
+                    {% if has_applied %}
+                        {% if previous_application_status == 'Rejected' %}
+                            <!-- Allow user to apply again if the previous application was rejected -->
+                            <a href="{% url 'loanreg' %}?loan_title={{ loan.title }}" class="btn btn-primary" style="border-radius: 8px; padding: 10px 20px; font-weight: bold;">Apply Now</a>
+                        {% else %}
+                            <!-- Show a disabled button if the user has applied with a different status -->
+                            <button disabled class="btn btn-secondary">You have already applied for a loan</button>
+                        {% endif %}
+                    {% else %}
+                        <!-- Show the active Apply button -->
+                        <a href="{% url 'loanreg' %}?loan_title={{ loan.title }}" class="btn btn-primary" style="border-radius: 8px; padding: 10px 20px; font-weight: bold;">Apply Now</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+    
+
+    <script src="{% static 'js/home.js' %}"></script>
+</body>
+</html>

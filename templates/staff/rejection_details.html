@@ -1,0 +1,20 @@
+<!-- rejection_details.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rejection Details</title>
+</head>
+<body>
+    <div class="back-link-container">
+        <a href="{% url 'my_applications' %}" class="back-link">&laquo; Back To Home</a>
+    </div>
+    <h1>Rejection Details</h1>
+    <p><strong>Application Number:</strong> {{ application.application_number }}</p>
+    <p><strong>Loan Type:</strong> {{ application.loan_purpose }}</p>
+    <p><strong>Applicant Name:</strong> {{ application.first_name }} {{ application.last_name }}</p>
+    <p><strong>Rejection Comments:</strong></p>
+    <p>{{ application.Add_rejection_comments }}</p>
+</body>
+</html>

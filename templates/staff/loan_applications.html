@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loan Applications</title>
+    <link rel="stylesheet" href="{% static 'your_css_file.css' %}">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 30px; /* Increased font size for better visibility */
+            text-transform: uppercase; /* Make the heading uppercase */
+            color: #2c3e50; /* Dark color for the heading */
+            letter-spacing: 2px; /* Spacing for better readability */
+            border-bottom: 2px solid #95A5A6; /* Add bottom border for emphasis */
+            padding-bottom: 10px; /* Spacing below the heading */
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%; /* Make table take full width */
+            border-collapse: collapse; /* Collapse borders */
+            margin: 20px 0; /* Space around the table */
+        }
+
+        th, td {
+            padding: 15px; /* Padding for cells */
+            text-align: left; /* Left-align text */
+            text-transform: uppercase; /* Make text uppercase */
+            border-bottom: 1px solid #ddd; /* Bottom border for cells */
+        }
+
+        th {
+            padding: 20px; /* Increased padding for table header cells */
+            background-color: #95A5A6; /* Header color */
+            color: white; /* Header text color */
+            font-size: 16px; /* Font size for header */
+            letter-spacing: 0.03em; /* Spacing for better readability */
+        }
+        
+        td {
+            font-size: 14px; /* Font size for rows */
+        }
+
+        .actions {
+            display: flex; /* Use flexbox for actions */
+            gap: 10px; /* Add space between buttons */
+            justify-content: flex-start; /* Align actions to the left */
+        }
+
+        .actions a {
+            padding: 8px 12px; /* Padding for button styling */
+            background-color: #95A5A6; /* Button background color matching the header */
+            color: white; /* Text color */
+            text-decoration: none; /* Remove underline */
+            border-radius: 30px; /* Rounded corners */
+            transition: background-color 0.3s; /* Transition effect */
+            font-weight: bold; /* Bold text for buttons */
+        }
+
+        .actions a:hover {
+            background-color: #7f8c8d; /* Darker shade on hover */
+        }
+
+        @media all and (max-width: 767px) {
+            table {
+                width: 100%; /* Full width on smaller screens */
+            }
+            th, td {
+                display: block; /* Stack table elements */
+                width: 100%; /* Full width for each cell */
+                box-sizing: border-box; /* Include padding in width */
+            }
+        }
+        .status-rejected {
+            color: red; /* Red for rejected */
+        }
+        
+        .status-pending {
+            color: #DAA520; /* Yellow for pending */
+        }
+        
+        .status-eligible {
+            color: green; /* Green for approved */
+        }
+        .form-container {
+            max-width: 1005px; /* Match the table's max width */
+            margin: 20px auto; /* Center align the container with some space */
+            padding: 5px; /* Padding around the container */
+            background-color: #fff; /* White background for contrast */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+            border-radius: 8px; /* Rounded corners for a softer look */
+        }
+        
+        .back-link-container {
+            text-align: center; /* Center the link */
+            margin: 20px 0; /* Vertical spacing */
+        }
+        
+        .back-link {
+            color: #95A5A6; /* Match the header and button color */
+            font-size: 16px; /* Consistent font size */
+            text-decoration: none; /* Remove underline */
+            padding: 10px 20px; /* Padding for a button-like appearance */
+            border: 2px solid #95A5A6; /* Border matching the header color */
+            border-radius: 5px; /* Rounded corners */
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+        }
+        
+        .back-link:hover {
+            background-color: #95A5A6; /* Background color on hover */
+            color: white; /* Text color changes on hover */
+        }
+        
+    </style>
+</head>
+<div class="form-container">
+    <div class="back-link-container">
+       <center> <a href="{% url 'staff_dashboard' %}" class="back-link">&laquo; Back to Home</a></center>
+    </div>
+</div>
+<body>
+    
+    <div class="container">
+        
+        <h1>Loan Applications</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Applicant Name</th>
+                    <th>Loan Type</th>
+                    <th>Status</th>
+                   <th> <center>Actions</center></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for application in applications %}
+                <tr>
+                    <td><center>{{ application.application_number }}</center></td>
+                    <td><center>{{ application.first_name }} {{ application.last_name }}</center></td>
+                    <td><center>{{ application.loan_purpose }}</center></td>
+                    <td class="{% if application.Application_status == 'Rejected' %}status-rejected{% elif application.Application_status == 'Pending' %}status-pending{% elif application.Application_status == 'Eligible' %}status-eligible{% endif %}"><center>
+                        {{ application.Application_status }}
+                    </center></td>
+                    <td class="actions">
+                        <a href="{% url 'view_application_staff' application.id %}">View</a>
+                        {% comment %} <a href="{% url 'delete_application' application.id %}" onclick="return confirm('Are you sure you want to delete this application?');">Delete</a> {% endcomment %}
+                        {% comment %} <a href="#">Approve</a>
+                        <a href="{% url 'update_application_status' application.id %}">Reject</a> {% endcomment %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

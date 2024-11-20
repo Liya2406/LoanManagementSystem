@@ -1,0 +1,96 @@
+ /* Login Box Container */
+
+ .signup-container h1 {
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+.signup-container .input-box {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.signup-container .input-box input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.signup-container .input-box input:focus {
+    border-color: #ff5e14;
+    outline: none;
+}
+
+.signup-container .button button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff5e14;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.signup-container .button button:hover {
+    background-color: #e45410;
+}
+
+/* Message Alert Styling */
+.alert {
+    background-color: #f44336;
+    color: white;
+    padding: 15px;
+    margin-top: 20px;
+    position: relative;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.alert .close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Aligning for header */
+/* Resetting margin and padding for body and html to remove any extra space */
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header alignment fix */
+.header {
+    margin-bottom: 0; /* Ensure no space between header and content */
+}
+
+/* Login Box Container */
+.signup-container {
+    width: 400px;
+    background-color: #f9f9f9;
+    padding: 40px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 100px auto; /* Adjust for header space */
+    position: relative;
+    text-align: center;
+}
+
+/* Other CSS remains the same */
+
+
+@media (max-width: 600px) {
+    .signup-container {
+        width: 90%;
+        margin: 50px auto; /* Adjust margin for smaller screens */
+    }
+}
